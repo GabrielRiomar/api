@@ -56,7 +56,12 @@ class NotesControllers {
     return response.json()
   }
 
-  async index(request, response) {}
+  async index(request, response) {
+    const { user_id } = request.query
+    const note = await knex('notes').where({ user_id }).orderBy('title')
+
+    return response.json(note)
+  }
 }
 
 module.exports = NotesControllers
